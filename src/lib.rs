@@ -28,6 +28,9 @@ fn validate_not_null(iban_candidate: &str) -> Result<bool, String> {
 }
 
 fn validate_length(iban_candidate: &str) -> Result<bool, String> {
+	if iban_candidate.len() < 15 {
+		return Err(ValidationErrorCodes::ErrorMinLength.to_string());
+	};
 	if iban_candidate.len() <= 34 {
 		return Ok(true);
 	};
@@ -80,10 +83,15 @@ mod tests {
 	const VALID_IBAN_3: &str = "GB33BUKB20201555555555";
 	
 	#[test]
+	fn should_error_for_min_lenth() {
+		let validation = validate("FR7630006");
+		assert_eq!(ValidationErrorCodes::ErrorMinLength.to_string(), validation.unwrap_err());
+	}
+
+	#[test]
 	fn should_error_for_max_lenth() {
 		let validation = validate("FR7630006000011234567890189 FR7630006000011234567890189 FR7630006000011234567890189");
 		assert_eq!(ValidationErrorCodes::ErrorMaxLength.to_string(), validation.unwrap_err());
-		
 	}
 
 	#[test]
@@ -121,7 +129,7 @@ pub enum ValidationErrorCodes {
 	ErrorMaxLength,
 	ErrorFirstTwoLetters,
 	ErrorChecksum,
-	E05,
+	ErrorMinLength,
 	E06
 }
 
@@ -132,7 +140,7 @@ impl fmt::Display for ValidationErrorCodes {
 			ValidationErrorCodes::ErrorMaxLength => write!(f, "ErrorMaxLength"),
 			ValidationErrorCodes::ErrorFirstTwoLetters => write!(f, "ErrorFirstTwoLetters"),
 			ValidationErrorCodes::ErrorChecksum => write!(f, "ErrorChecksum"),
-			ValidationErrorCodes::E05 => write!(f, "E05"),
+			ValidationErrorCodes::ErrorMinLength => write!(f, "ErrorMinLength"),
 			ValidationErrorCodes::E06 => write!(f, "E06"),
 		}
 	}
