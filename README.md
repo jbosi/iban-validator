@@ -3,7 +3,7 @@ An iban validator containing rust generated WebAssembly
 
 ## Quick start
 
-* Install the package as a JS dependency (npm i `iban-validator`)
+* Install the package as a JS dependency `npm i iban-validator`
 * Import the validate function ex :
 ```typescript
 import { validate } from 'iban-validator';
