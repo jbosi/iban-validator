@@ -1,9 +1,9 @@
 [package]
 name = "iban-validator"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
 license = "MIT"
-description = "An iban validator written containing rust generated WebAssembly"
+description = "An iban validator containing rust generated WebAssembly"
 repository = "https://github.com/jbosi/iban-validator"
 
 [lib]
