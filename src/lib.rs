@@ -1,4 +1,4 @@
-use std::{str::Chars, fmt};
+use std::str::Chars;
 use wasm_bindgen::prelude::*;
 
 const LETTER_A_VALUE: u128 = 'A' as u128;
@@ -16,8 +16,8 @@ pub fn validate(raw_input: &str) -> Result<bool, String> {
 	validate_not_null(raw_input)?;
 	
 	let iban_candidate: String = raw_input.chars()
-	.filter(|c| !c.is_whitespace())
-	.collect();
+		.filter(|c| !c.is_whitespace())
+		.collect();
 	
 	validate_length(&iban_candidate)?;
 	validate_first_letters(&iban_candidate)?;
