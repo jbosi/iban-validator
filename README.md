@@ -13,13 +13,13 @@ import { validate } from 'iban-validator';
 try {
 	this.isValid = validate(value)
 } catch (e) {
-	console.log(e)
+	// Handle error here
 }
 ```
 
 ## Error list :
 * `ErrorNullValue` : provided value is null
 * `ErrorMaxLength`: the value is longer than 35 char
-* `ErrorFirstTwoLetters`: the first two letters should be strings (and match and country code - not implemented yet)
+* `ErrorFirstTwoLetters`: the first two letters should be strings (and match any country code - not implemented yet)
 * `ErrorChecksum` : the checksum is invalid
 * `ErrorMinLength` : the value is shorter than 15 char
