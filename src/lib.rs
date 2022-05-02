@@ -23,14 +23,14 @@ pub fn validate(raw_input: &str) -> Result<bool, String> {
 	validate_first_letters(&iban_candidate)?;
 	validate_checksum(&iban_candidate)?;
 	
-	return Ok(true);
+	Ok(true)
 }
 
 fn validate_not_null(iban_candidate: &str) -> Result<bool, String> {
 	if iban_candidate.is_empty() {
 		return Err(ValidationErrorCodes::ErrorNullValue.to_string());
 	}
-	return Ok(true);
+	Ok(true)
 }
 
 fn validate_length(iban_candidate: &str) -> Result<bool, String> {
@@ -40,7 +40,7 @@ fn validate_length(iban_candidate: &str) -> Result<bool, String> {
 	if iban_candidate.len() <= 34 {
 		return Ok(true);
 	};
-	return Err(ValidationErrorCodes::ErrorMaxLength.to_string());
+	Err(ValidationErrorCodes::ErrorMaxLength.to_string())
 }
 
 fn validate_first_letters(iban_candidate: &str) -> Result<bool, String> {
@@ -55,7 +55,7 @@ fn validate_first_letters(iban_candidate: &str) -> Result<bool, String> {
 		return Ok(true);
 	}
 	
-	return Err(ValidationErrorCodes::ErrorFirstTwoLetters.to_string());
+	Err(ValidationErrorCodes::ErrorFirstTwoLetters.to_string())
 }
 
 fn validate_checksum(iban_candidate: &str) -> Result<bool, String> {
@@ -71,12 +71,12 @@ fn validate_checksum(iban_candidate: &str) -> Result<bool, String> {
 		} else {
 			number = (val as u128) - ASCII_OFFSET_TO_ZERO;
 		}
-		return number.to_string();
+		number.to_string()
 	}).collect();
 	
 	if result.parse::<u128>().unwrap().rem_euclid(97) == 1 {
 		return Ok(true);
 	};
 	
-	return Err(ValidationErrorCodes::ErrorChecksum.to_string());
+	Err(ValidationErrorCodes::ErrorChecksum.to_string())
 }
